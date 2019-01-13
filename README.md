@@ -23,4 +23,4 @@ Known issues
 - The moved picture are still in the "list". Error if you retry to view them.
 - End of list is not catched
 - No reload function for the folder
-- Viewer is hard coded to 800x600. Picture ratio will be ignored
+- Viewer is hard coded to 800px height
