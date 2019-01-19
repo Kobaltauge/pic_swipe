@@ -18,12 +18,29 @@ file_path = os.path.dirname(filedialog.askopenfilename())
 picturelist = os.listdir(file_path)
 index = 0
 
-def viewpic(index):
+def checkpic():
+    global index
+    # create viewer windows, resize picture
+    img = cv2.imread(filename = str(file_path)+"/"+str(picturelist[index]))
+    h, w, r = 0, 0, 0
+    h, w, r = img.shape
+    if (h < 301) and (w < 301):
+        shutil.move(str(file_path)+"/"+str(picturelist[index]), str(todelete)+"/"+str(picturelist[index]))
+        index += 1
+        viewpic()
+
+def viewpic():
+    global index
+    checkpic()
     # create viewer windows, resize picture
     cv2.namedWindow("image", cv2.WINDOW_NORMAL)
     img = cv2.imread(filename = str(file_path)+"/"+str(picturelist[index]))
     h, w, r = 0, 0, 0
     h, w, r = img.shape
+    if (h < 200) and (w < 200):
+        shutil.move(str(file_path)+"/"+str(picturelist[index]), str(todelete)+"/"+str(picturelist[index]))
+        index += 1
+        viewpic()
     ratio = w / h
     height = 800
     width = int(height * ratio)
@@ -39,25 +56,27 @@ def picloop():
             break
         elif k==2490368:    # cursor up move to delete folder
             shutil.move(str(file_path)+"/"+str(picturelist[index]), str(todelete)+"/"+str(picturelist[index]))
-            index += 1
-            viewpic(index)
+            del picturelist[index]
+            viewpic()
         elif k==2621440:    #cursor down move to sort folder
             shutil.move(str(file_path)+"/"+str(picturelist[index]), str(sort)+"/"+str(picturelist[index]))
-            index += 1
-            viewpic(index)
+            del picturelist[index]
+            viewpic()
         elif k==2424832:    # cursor left previous picture
             index -= 1
             if index < 0:
                 index = 0
-            viewpic(index)
+            viewpic()
         elif k==2555904:    # cursor right next picture
             index += 1
-            viewpic(index)
+            if index > len(picturelist)-1:
+                index = len(picturelist)-1
+            viewpic()
         elif k==-1:         # ignore waitkey standard input
             continue
         else:               # print every other pressed key
             print(k)    
 
 if __name__ == '__main__':
-    viewpic(index)
+    viewpic()
     picloop()
