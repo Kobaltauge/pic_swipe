@@ -17,10 +17,9 @@ Cursor keys left and right jump from one picture to the next.
 Cursor key up moves tht picture in the "delete" folder.
 Cursor key down move the picture in the "sort" folder.
 
+The skript moves automatically all files smaller 300x300px to the delete folder.
+
 
 Known issues
 - The output folders a hardcoded
-- The moved picture are still in the "list". Error if you retry to view them.
-- End of list is not catched
-- No reload function for the folder
 - Viewer is hard coded to 800px height
