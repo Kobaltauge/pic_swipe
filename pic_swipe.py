@@ -26,6 +26,7 @@ def checkpic():
     h, w, r = img.shape
     if (h < 301) and (w < 301):
         shutil.move(str(file_path)+"/"+str(picturelist[index]), str(todelete)+"/"+str(picturelist[index]))
+        del picturelist[index]
         index += 1
         viewpic()
 
@@ -37,10 +38,6 @@ def viewpic():
     img = cv2.imread(filename = str(file_path)+"/"+str(picturelist[index]))
     h, w, r = 0, 0, 0
     h, w, r = img.shape
-    if (h < 200) and (w < 200):
-        shutil.move(str(file_path)+"/"+str(picturelist[index]), str(todelete)+"/"+str(picturelist[index]))
-        index += 1
-        viewpic()
     ratio = w / h
     height = 800
     width = int(height * ratio)
@@ -63,9 +60,12 @@ def picloop():
             del picturelist[index]
             viewpic()
         elif k==2424832:    # cursor left previous picture
+            print(index)
             index -= 1
             if index < 0:
                 index = 0
+            print("vor view")
+            print(index)
             viewpic()
         elif k==2555904:    # cursor right next picture
             index += 1
